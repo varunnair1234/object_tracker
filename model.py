@@ -10,3 +10,8 @@ class AppearanceModel():
         self.mean = patch
         self.n_samples = 1
 
+    def score(self, patch):
+        pass
+
+    def update(self, patch):
+        pass
