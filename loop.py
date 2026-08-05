@@ -1,11 +1,15 @@
+#Loop
+
 import cv2
 
 webcam = cv2.VideoCapture(0)
 
 if webcam.isOpened():
     print('yes')
-elif not webcam.isOpened():
-    print(f'Error')
+
+else:
+    print(f'error')
+    exit()
 
 while True:
     ret, frame = webcam.read()
@@ -21,3 +25,5 @@ while True:
 
 webcam.release()
 cv2.destroyAllWindows()
+
+
