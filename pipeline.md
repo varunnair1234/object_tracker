@@ -4,7 +4,7 @@
 
 Import: NumPy, PyTorch, OpenCV, Requests
 
-'''python
+```python
 import numpy as np
 import torch
 import opencv
