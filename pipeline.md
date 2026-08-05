@@ -9,6 +9,6 @@ import numpy as np
 import torch
 import opencv
 import requests
-'''
+
 
 ### Stage 2
