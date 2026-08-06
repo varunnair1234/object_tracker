@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 from model import AppearanceModel
 import torch
+from patches import preprocess, generate_candidates
 
 webcam = cv2.VideoCapture(0)        # starts up the webcam of the computer being used
 
@@ -27,13 +28,7 @@ x, y, w, h = cv2.selectROI('Select Object', frame)          # Returns the top le
 
 patch = frame[y:y+h, x:x+w]         # gets the image patch, which is everything within the rectangle
 
-patch = cv2.cvtColor(patch, cv2.COLOR_BGR2GRAY)         #   convert to grayscale, simpler model
-
-patch = cv2.resize(patch, (32, 32))             #   resizing to a fixed shape helps PCA because PCA can't work for opposite dimensions
-patch_arr = patch.flatten()             #     Flattening the array multilpies the dimensions
-
-
-print(patch_arr.shape)
+patch_arr = preprocess(patch)
 
 patch_tensor = torch.tensor(patch_arr, dtype = torch.float32)      # we use pytorch so its trained on the GPU and also i've been instructed to use PyTorch
 
@@ -51,6 +46,8 @@ while True:
 
     if not ret:
         break
+    
+    #Scoring Section
 
     cv2.imshow('Tracker', frame)
 
