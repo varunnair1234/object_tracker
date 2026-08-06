@@ -7,6 +7,8 @@ class AppearanceModel():
         self.components = None
         self.singular_values = None
         self.n_samples = 0
+        self.buffer = []
+        self.buffer_size = 30
     
     def initialize(self, patch):
         self.mean = patch
@@ -17,4 +19,8 @@ class AppearanceModel():
         return torch.norm(mean_center)          # torch.norm computs the magnitude of vector mean_center
 
     def update(self, patch):
-        pass
+        buffer = self.buffer
+        buffer.append(patch)
+        if len(buffer) > self.buffer_size:
+            buffer.pop(0)
+        

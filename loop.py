@@ -48,6 +48,24 @@ while True:
         break
     
     #Scoring Section
+    candidates = generate_candidates(frame, x, y, w, h)
+
+    scored = []
+
+    for cx, cy, patch in candidates:
+        patch = preprocess(patch)
+        patch_tensor = torch.tensor(patch, dtype=torch.float32)
+        score = model.score(patch_tensor)
+        scored.append((cx, cy, score, patch_tensor))
+
+    winner = min(scored, key = lambda item : item[2])
+    x, y, winner_tensor = winner[0], winner[1], winner[3]
+
+    cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+    model.update(winner_tensor)
+
+    print(len(model.buffer))
 
     cv2.imshow('Tracker', frame)
 
