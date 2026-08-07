@@ -18,9 +18,9 @@ else:
 for _ in range(10):
     webcam.read()
 
-ret, frame = webcam.read()          # reads first frame of the webcam
+capture, frame = webcam.read()          # reads first frame of the webcam
 
-if not ret:
+if not capture:
     print(f'read failed, ret = {ret}')
     exit()
 
@@ -42,9 +42,9 @@ print(model.mean.dtype)
 #Loop for the webcam, passes through the frames
 
 while True:
-    ret, frame = webcam.read()
+    capture, frame = webcam.read()
 
-    if not ret:
+    if not capture:
         break
     
     #Scoring Section

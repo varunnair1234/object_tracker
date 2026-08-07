@@ -23,4 +23,11 @@ class AppearanceModel():
         buffer.append(patch)
         if len(buffer) > self.buffer_size:
             buffer.pop(0)
-        
+        #PCA computation
+        if len(buffer) >= self.n_components + 1:
+            stacked = torch.stack(buffer)
+            self.mean = torch.mean(stacked, dim=0)
+            centered = stacked - self.mean
+            U, S, Vt = torch.linalg.svd(centered, full_matrices = False)            #   U = how much of PC1 is in this patch, how much of PC2 is in it
+            self.components = Vt[:self.n_components]
+            self.singular_values = S[:self.n_components]
