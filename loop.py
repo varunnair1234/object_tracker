@@ -21,7 +21,7 @@ for _ in range(10):
 capture, frame = webcam.read()          # reads first frame of the webcam
 
 if not capture:
-    print(f'read failed, ret = {ret}')
+    print(f'read failed, capture = {capture}')
     exit()
 
 x, y, w, h = cv2.selectROI('Select Object', frame)          # Returns the top left horizontal and vertical coordinate, along with width and height of rectangle
