@@ -6,13 +6,11 @@ class AppearanceModel():
         self.mean = None
         self.components = None
         self.singular_values = None
-        self.n_samples = 0
         self.buffer = []
         self.buffer_size = 30
     
     def initialize(self, patch):
         self.mean = patch
-        self.n_samples = 1
 
     def score(self, patch):
         mean_center = patch - self.mean         # this is a 1024 dimensional vector
