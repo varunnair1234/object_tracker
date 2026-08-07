@@ -6,7 +6,7 @@ from model import AppearanceModel
 import torch
 from patches import preprocess, generate_candidates
 
-webcam = cv2.VideoCapture(0)        # starts up the webcam of the computer being used
+webcam = cv2.VideoCapture(1)        # starts up the webcam of the computer being used
 
 if webcam.isOpened():               # sanity check
     print('yes')

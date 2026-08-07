@@ -7,15 +7,21 @@ class AppearanceModel():
         self.components = None
         self.singular_values = None
         self.buffer = []
-        self.buffer_size = 30
+        self.buffer_size = 50
     
     def initialize(self, patch):
         self.mean = patch
 
     def score(self, patch):
-        mean_center = patch - self.mean         # this is a 1024 dimensional vector
-        return torch.norm(mean_center)          # torch.norm computs the magnitude of vector mean_center
+        mean_center = patch - self.mean
+        if self.components is None:
+            return torch.norm(mean_center)
 
+        coefficients = self.components @ mean_center
+        reconstruction = coefficients @ self.components
+        residual = mean_center - reconstruction
+        return torch.norm(residual)      
+    
     def update(self, patch):
         buffer = self.buffer
         buffer.append(patch)
