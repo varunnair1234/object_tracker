@@ -13,13 +13,13 @@ class AppearanceModel():
         self.mean = patch
 
     def score(self, patch):
-        mean_center = patch - self.mean
+        patch_relative_mean = patch - self.mean             # centers the data around the mean
         if self.components is None:
-            return torch.norm(mean_center)
+            return torch.norm(patch_relative_mean)
 
-        coefficients = self.components @ mean_center
+        coefficients = self.components @ patch_relative_mean
         reconstruction = coefficients @ self.components
-        residual = mean_center - reconstruction
+        residual = patch_relative_mean - reconstruction
         return torch.norm(residual)      
     
     def update(self, patch):
